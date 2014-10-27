@@ -1,4 +1,4 @@
-USE [KIPP_NJ]
+USE [PS_mirror]
 GO
 
 SET ANSI_NULLS ON
@@ -21,7 +21,7 @@ BEGIN
 		--STEP 2: load into a TEMPORARY staging table.
   SELECT *
 		INTO [#PS$TEACHERS|refresh]
-  FROM OPENQUERY(PS_TEAM,'
+  FROM OPENQUERY(PS_CHI,'
     SELECT USERS_DCID
           ,DCID
           ,ID
@@ -39,7 +39,7 @@ BEGIN
           ,CLASSPUA
           ,NOOFCURCLASSES
           ,GROUPVALUE
-          ,CAST(TEACHERNUMBER AS INT) AS TEACHERNUMBER
+          ,TEACHERNUMBER
           ,HOME_PHONE
           ,SCHOOL_PHONE
           ,STREET
@@ -65,7 +65,7 @@ BEGIN
   ');
 
   --STEP 4: truncate 
-  EXEC('TRUNCATE TABLE KIPP_NJ..TEACHERS');
+  EXEC('TRUNCATE TABLE PS_mirror..TEACHERS');
 
   --STEP 5: disable all nonclustered indexes on table
   SELECT @sql = @sql + 

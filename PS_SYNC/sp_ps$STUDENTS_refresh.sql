@@ -1,4 +1,4 @@
-USE [KIPP_NJ]
+USE [PS_mirror]
 GO
 
 SET ANSI_NULLS ON
@@ -23,7 +23,7 @@ BEGIN
 		--STEP 2: load into a TEMPORARY staging table.
   SELECT *
 		INTO [#PS$STUDENTS|refresh]
-  FROM OPENQUERY(PS_TEAM,'
+  FROM OPENQUERY(PS_CHI,'
     SELECT DCID
           ,ID
           ,LASTFIRST
@@ -65,8 +65,12 @@ BEGIN
     FROM STUDENTS
   ');
 
+
+  --STEP 3.5 Check if STUDENTS exists, if not CRE
   --STEP 4: truncate 
-  EXEC('TRUNCATE TABLE KIPP_NJ..STUDENTS');
+
+
+  EXEC('TRUNCATE TABLE PS_mirror..STUDENTS');
 
   --STEP 5: disable all nonclustered indexes on table
   SELECT @sql = @sql + 
@@ -97,7 +101,7 @@ BEGIN
   ON sys.indexes.object_id = sys.objects.object_id
  WHERE sys.indexes.type_desc = 'NONCLUSTERED'
   AND sys.objects.type_desc = 'USER_TABLE'
-  AND sys.objects.name = 'STUDENTS';
+  AND sys.objects.name = 'students';
 
  EXEC (@sql);
   
