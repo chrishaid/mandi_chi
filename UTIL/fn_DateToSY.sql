@@ -1,4 +1,4 @@
-USE [KIPP_NJ]
+USE [PS_mirror]
 GO
 
 SET ANSI_NULLS ON

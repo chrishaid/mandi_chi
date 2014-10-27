@@ -1,4 +1,4 @@
-USE [KIPP_NJ]
+USE [PS_mirror]
 GO
 
 /****** Object:  UserDefinedFunction [dbo].[fn_DateToSY]    Script Date: 10/15/2014 3:45:06 PM ******/
@@ -9,7 +9,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-ALTER FUNCTION [dbo].[fn_ExprToPeriod] (@expression VARCHAR(5))
+CREATE FUNCTION [dbo].[fn_ExprToPeriod] (@expression VARCHAR(5))
   RETURNS VARCHAR(2)
   AS
 
