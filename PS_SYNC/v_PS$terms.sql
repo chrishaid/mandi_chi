@@ -1,10 +1,12 @@
-USE KIPP_NJ
+USE PS_mirror
 GO
 
-ALTER VIEW PS$terms AS 
+CREATE VIEW PS$terms AS 
 
 SELECT *
-FROM OPENQUERY(PS_TEAM,'
+FROM OPENQUERY(PS_CHI,'
   SELECT *
   FROM terms
 ')
+
+SELECT * from [dbo].PS$terms;
