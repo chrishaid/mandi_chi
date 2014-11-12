@@ -50,7 +50,7 @@ BEGIN
   EXEC (@sql);
 
   -- step 6: insert into final destination
-  INSERT INTO [dbo].[ATTENDANCE]
+  INSERT INTO [dbo].[attendance]
   SELECT *
   FROM [#PS$ATTENDANCE|refresh];
 
