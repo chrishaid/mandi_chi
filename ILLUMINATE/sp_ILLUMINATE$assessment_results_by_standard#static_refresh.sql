@@ -1,4 +1,4 @@
-USE [KIPP_NJ]
+USE [Illuminate_mirror]
 GO
 
 SET ANSI_NULLS ON
@@ -8,7 +8,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
                   
-ALTER PROCEDURE [sp_ILLUMINATE$assessment_results_by_standard#static|refresh] AS
+Create PROCEDURE [sp_ILLUMINATE$assessment_results_by_standard#static|refresh] AS
 BEGIN
 
   DECLARE @sql AS VARCHAR(MAX)='';
@@ -27,7 +27,7 @@ BEGIN
          
 
   -- STEP 3: truncate destination table
-  EXEC('TRUNCATE TABLE KIPP_NJ..ILLUMINATE$assessment_results_by_standard#static');
+  EXEC('TRUNCATE TABLE Illuminate_mirror..assessment_results_by_standard#static');
 
 
   -- STEP 4: disable all nonclustered indexes on table
@@ -39,12 +39,12 @@ BEGIN
     ON sys.indexes.object_id = sys.objects.object_id
   WHERE sys.indexes.type_desc = 'NONCLUSTERED'
     AND sys.objects.type_desc = 'USER_TABLE'
-    AND sys.objects.name = 'ILLUMINATE$assessment_results_by_standard#static';
+    AND sys.objects.name = 'assessment_results_by_standard#static';
   EXEC (@sql);
 
 
   -- STEP 5: insert into final destination
-  INSERT INTO [ILLUMINATE$assessment_results_by_standard#static]
+  INSERT INTO [assessment_results_by_standard#static]
   SELECT *
   FROM [#ILLUMINATE$assessment_results_by_standard#static|refresh];
  

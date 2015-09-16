@@ -1,9 +1,9 @@
-USE KIPP_NJ
+USE Illuminate_mirror
 GO
 
 ALTER VIEW ILLUMINATE$assessment_results_by_question_group AS
 SELECT *
-FROM OPENQUERY(ILLUMINATE, '
+FROM OPENQUERY(ILL_CHI, '
  SELECT agg_resp_group.*
        ,perf_bands.performance_band_set_id
        ,perf_bands.minimum_value

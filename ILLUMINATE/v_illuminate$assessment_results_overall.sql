@@ -1,10 +1,10 @@
-USE KIPP_NJ
+USE Illuminate_mirror
 GO
 
-ALTER VIEW ILLUMINATE$assessment_results_overall AS
+CREATE VIEW ILLUMINATE$assessment_results_overall AS
 
 SELECT *
-FROM OPENQUERY(ILLUMINATE, '
+FROM OPENQUERY(ILL_CHI, '
  SELECT s.local_student_id AS student_number
        ,agg_resp.assessment_id
        ,agg_resp.date_taken
